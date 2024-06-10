@@ -1,10 +1,13 @@
 from dataclasses import dataclass
 
+from activation import ActivationF
+
 
 @dataclass
 class NodeGene:
     node_id: int
     layer: int
+    activation_f: ActivationF = ActivationF.TANH
 
 
 class ConnectionId(tuple):
