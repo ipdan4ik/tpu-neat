@@ -1,14 +1,11 @@
 import numpy as np
 
 from nn import NeuralNetwork
+from tasks.evaluator import Evaluator
 
 
-class XOREvaluator:
-    def __init__(
-        self, tolerance: float = 0.1
-    ):
-        self.tolerance = tolerance
-        self.epsilon = 0.1
+class XOREvaluator(Evaluator):
+    def __init__(self):
         self.inputs = [[0, 0], [0, 1], [1, 0], [1, 1]]
         self.expected_outputs = [[0], [1], [1], [0]]
 

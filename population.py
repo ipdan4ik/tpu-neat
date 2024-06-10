@@ -8,7 +8,8 @@ from genome import Genome
 from main import ConnectionId, innovation_tracker
 from nn import NeuralNetwork
 from species import Species
-from xor import XOREvaluator
+from tasks import XOREvaluator
+from tasks.evaluator import Evaluator
 
 
 def mate(genome0: Genome, genome1: Genome) -> Genome:
@@ -22,7 +23,7 @@ def mate(genome0: Genome, genome1: Genome) -> Genome:
         child.nodes.append(deepcopy(node))
 
     if max_genome.fitness >= min_genome.fitness:
-        for node in max_genome.nodes[len(min_genome.nodes) :]:
+        for node in max_genome.nodes[len(min_genome.nodes):]:
             child.nodes.append(deepcopy(node))
 
     intersection = genome0.connections.keys() & genome1.connections.keys()
@@ -142,7 +143,7 @@ class Population:
         self.species: list[Species] = []
         self.current_compatibility_threshold: int = config.compatibility_threshold
         self.champions: list[Genome] = []
-        self.evaluator = XOREvaluator()
+        self.evaluator: Evaluator = XOREvaluator()
         self.solved_at: int | None = None
         self.generation_index: int = 0
 
