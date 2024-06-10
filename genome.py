@@ -11,6 +11,7 @@ class Genome:
         self.connections: dict[ConnectionId, ConnectionGene] = dict()
         self.nodes: list[NodeGene] = list()
         self.fitness: float = 0
+        self.adjusted_fitness: float = 0
 
     def add_node(self, layer: int) -> NodeGene:
         node = NodeGene(node_id=len(self.nodes), layer=layer)
@@ -62,7 +63,9 @@ class Genome:
 
         connection = random.choice(possible_connections)
         node = self.add_node(layer=connection.from_node.layer + 1)
-        self.add_connection(in_node=connection.from_node, out_node=node, weight=config.weight_range[1])
+        self.add_connection(
+            in_node=connection.from_node, out_node=node, weight=config.weight_range[1]
+        )
         self.add_connection(
             in_node=node, out_node=connection.to_node, weight=connection.weight
         )
