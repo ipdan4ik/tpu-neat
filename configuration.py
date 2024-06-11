@@ -14,8 +14,8 @@ class Configuration:
 
     population_size: int = 100
     target_species: int = 15
-    input_nodes: int = 2
-    output_nodes: int = 1
+    input_nodes: int = 8
+    output_nodes: int = 2
     add_bias_node: bool = True
     bias_value: float = 0.5
     max_depth: int = 3

@@ -8,7 +8,7 @@ from genome import Genome
 from main import ConnectionId, innovation_tracker
 from nn import NeuralNetwork
 from species import Species
-from tasks import XOREvaluator
+from tasks import XOREvaluator, DiabetesEvaluator
 from tasks.evaluator import Evaluator
 
 
@@ -143,7 +143,7 @@ class Population:
         self.species: list[Species] = []
         self.current_compatibility_threshold: int = config.compatibility_threshold
         self.champions: list[Genome] = []
-        self.evaluator: Evaluator = XOREvaluator()
+        self.evaluator: Evaluator = DiabetesEvaluator()
         self.solved_at: int | None = None
         self.generation_index: int = 0
 
