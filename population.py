@@ -8,7 +8,6 @@ from genome import Genome
 from main import ConnectionId, innovation_tracker
 from nn import NeuralNetwork
 from species import Species
-from tasks import XOREvaluator, DiabetesEvaluator
 from tasks.evaluator import Evaluator
 
 
@@ -136,16 +135,16 @@ def create_initial_genome() -> Genome:
 
 
 class Population:
-    def __init__(self):
+    def __init__(self, evaluator: Evaluator):
         self.genomes: list[Genome] = [
             create_initial_genome() for _ in range(config.population_size)
         ]
         self.species: list[Species] = []
         self.current_compatibility_threshold: int = config.compatibility_threshold
         self.champions: list[Genome] = []
-        self.evaluator: Evaluator = DiabetesEvaluator()
         self.solved_at: int | None = None
         self.generation_index: int = 0
+        self.evaluator = evaluator
 
     def init_species(self):
         for specie in self.species:
@@ -265,16 +264,3 @@ class Population:
         self.check_for_stagnation()
         self.reproduce_offspring()
         self.generation_index += 1
-
-
-if __name__ == "__main__":
-    GENERATIONS = 100
-    population = Population()
-    for generation in range(GENERATIONS):
-        population.evolve()
-        print(f"gen #{generation} | max fitness: {population.champions[-1].fitness}")
-
-        if population.solved_at is not None or generation == GENERATIONS - 1:
-            test_nn = NeuralNetwork(population.champions[-1])
-            population.evaluator.log_results(test_nn)
-            break
